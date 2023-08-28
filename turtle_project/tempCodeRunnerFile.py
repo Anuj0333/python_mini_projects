@@ -1,0 +1,1 @@
+tim.left(angle)
