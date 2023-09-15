@@ -1,0 +1,1 @@
+print(phonetic_dict)
