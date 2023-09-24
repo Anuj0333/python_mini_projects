@@ -44,14 +44,16 @@ print(day_before_yesterday_closing_price)
 #Find the positive difference between 1 and 2. e.g. 40 - 20 = -20, but the positive difference is 20. Hint: https://www.w3schools.com/python/ref_func_abs.asp
 difference=abs(float(yesterday_closing_price) - float(day_before_yesterday_closing_price))
 print(difference)
-#Work out the percentage difference in price between closing price yesterday and closing price the day before yesterday.
-difference_percent=(difference/float(yesterday_closing_price))*100
 up_down=None
 if difference>0:
-    print(difference)
-#     up_down="⬆️"
-# else:
-#     up_down="⬇️"
+    up_down="⬆️"
+else:
+    up_down="⬇️"
+
+#Work out the percentage difference in price between closing price yesterday and closing price the day before yesterday.
+difference_percent=round((difference/float(yesterday_closing_price))*100)
+print(difference_percent)
+
 
 
 
@@ -60,7 +62,7 @@ if difference>0:
 
 #Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
 
-if difference_percent>4:
+if abs(difference_percent)>=5:
     news_parameter={
         "apiKey":NEWS_API_KEY,
         "qInTitle":COMPANY_NAME ,
@@ -81,7 +83,7 @@ if difference_percent>4:
 #Create a new list of the first 3 article's headline and description using list comprehension.
     # for arlicle in three_articles:
     #     print()
-    formatted_articles=[f"Headline:{arlicle['title']}.\nBreif:{arlicle[ 'description']}" for arlicle in three_articles]
+    formatted_articles=[f"{STOCK_NAME}:{up_down}{difference_percent}%\nHeadline: {arlicle['title']}.\nBreif:{arlicle[ 'description']}" for arlicle in three_articles]
     
 #Send each article as a separate message via Twilio. 
     client=Client(account_sid,auth_token)
